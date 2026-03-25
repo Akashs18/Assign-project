@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>User Dashboard</h1>
+  <p>Welcome User: <%= user.email %></p>
+
+  <ul>
+    <li><a href="/user/projects">My Projects</a></li>
+    <li><a href="/profile">My Profile</a></li>
+    <li><a href="/orders">My Orders</a></li>
+    <li><a href="/settings">Settings</a></li>
+  </ul>
+
+  <a href="/logout">Logout</a>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+  <p>Welcome Admin: <%= user.email %></p>
+
+  <ul>
+    <li><a href="/admin/users">Manage Users</a></li>
+    <li><a href="/admin/projects">Manage Projects</a></li>
+    <li><a href="/reports">View Reports</a></li>
+    <li><a href="/settings">System Settings</a></li>
+  </ul>
+
+  <a href="/logout">Logout</a>
+</body>
+</html>
