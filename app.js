@@ -31,10 +31,10 @@ app.set('views', path.join(__dirname, 'views'));
 
 // ================= DATABASE =================
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
+  user: 'postgres1',
+  host: 'dpg-d71t06u3jp1c739i70tg-a.oregon-postgres.render.com/demo_f1',
   database: 'demo_f1',
-  password: '123456',
+  password: '7VEx7rOrB9bdZSLxcCMwA63Q9xgPOhgh',
   port: 5432,
 });
 
