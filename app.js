@@ -10,6 +10,12 @@ const session = require('express-session');
 const app = express();
 const PORT = 3000;
 const SECRET = "jwt-secret-key";
+// async function hashPassword() {
+// const password = '123456';
+// const hashed =await bcrypt.hash(password, 10);
+// console.log(hashed);
+// }
+// hashPassword();
 
 // ================= MIDDLEWARE =================
 app.use(express.json());
@@ -42,7 +48,7 @@ const pool = new Pool({
 });
 
 // ================= ROOT =================
-app.get('/log', (req,res)=>{
+app.get('/', (req,res)=>{
   res.json({
     message:"Auth API Running",
     endpoints:{
@@ -56,7 +62,7 @@ app.get('/log', (req,res)=>{
 });
 
 // ================= WEB LOGIN =================
-app.get('/', (req,res)=>{
+app.get('/login', (req,res)=>{
   res.render('login', { error: null });
 });
 
