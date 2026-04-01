@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/dashboard.css">
 </head>
 <body>
   <h1>Admin Dashboard</h1>
@@ -17,5 +17,82 @@
   </ul>
 
   <a href="/logout">Logout</a>
+
+  <h2>User Table</h2>
+
+<button onclick="addRow()">➕ Add Row</button>
+<div class="container">
+
+<table border="1" id="userTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>City</th>
+      <th>Status</th>
+      <th>Department</th>
+      <th>Created At</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if(typeof users !== 'undefined' && users.length){ %>
+      <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.email %></td>
+          <td><%= user.role %></td>
+          <td><%= user.name || 'N/A' %></td>
+          <td><%= user.phone || 'N/A' %></td>
+          <td><%= user.city || 'N/A' %></td>
+          <td><%= user.status || 'active' %></td>
+          <td><%= user.department || 'General' %></td>
+          <td><%= user.created_at || 'N/A' %></td>
+          <td><button>Delete</button></td>
+        </tr>
+      <% }) %>
+    <% } else { %>
+      <!-- Default 10 rows -->
+      <% for(let i=1;i<=10;i++){ %>
+        <tr>
+          <td><%= i %></td>
+          <td>demo<%= i %>@mail.com</td>
+          <td>user</td>
+          <td>User <%= i %></td>
+          <td>99999999<%= i %></td>
+          <td>City <%= i %></td>
+          <td>active</td>
+          <td>Dept <%= i %></td>
+          <td>2026-01-01</td>
+          <td><button>Delete</button></td>
+        </tr>
+      <% } %>
+    <% } %>
+  </tbody>
+</table>
+</div>
+<script>
+function addRow(){
+  const table = document.getElementById("userTable").getElementsByTagName('tbody')[0];
+  const rowCount = table.rows.length + 1;
+
+  const row = table.insertRow();
+
+  row.insertCell(0).innerText = rowCount;
+  row.insertCell(1).innerText = "new"+rowCount+"@mail.com";
+  row.insertCell(2).innerText = "user";
+  row.insertCell(3).innerText = "User "+rowCount;
+  row.insertCell(4).innerText = "900000000"+rowCount;
+  row.insertCell(5).innerText = "City "+rowCount;
+  row.insertCell(6).innerText = "active";
+  row.insertCell(7).innerText = "Dept "+rowCount;
+  row.insertCell(8).innerText = new Date().toISOString().split('T')[0];
+  row.insertCell(9).innerHTML = "<button>Delete</button>";
+}
+</script>
 </body>
 </html>

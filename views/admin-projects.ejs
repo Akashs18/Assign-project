@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Admin Projects</title>
+   <link rel="stylesheet" href="/dashboard.css">
 </head>
 <body>
 <h1>Welcome Admin <%= user.email %></h1>
@@ -14,12 +15,14 @@
 </form>
 
 <h2>Projects</h2>
+
 <% projects.forEach(function(project) { %>
-  <div style="border:1px solid #ccc; margin:10px; padding:10px;">
+  <div class="project-card">
+    
     <h3><%= project.name %></h3>
     <p><%= project.description %></p>
 
-    <h4>Assign Users:</h4>
+    <h4>Assign Users</h4>
     <form method="POST" action="/admin/projects/<%= project.id %>/assign">
       <select name="user_id" required>
         <% allUsers.forEach(function(u) { %>
@@ -29,14 +32,22 @@
       <button type="submit">Assign</button>
     </form>
 
-    <h4>User Decisions:</h4>
+    <h4>User Decisions</h4>
     <ul>
       <% project.user_decisions.forEach(function(u) { %>
         <% if(u.user_id) { %>
-          <li><%= u.email %> - <%= u.status %></li>
+          <li>
+            <strong><%= u.email %></strong> — 
+            <span style="color:
+              <%= u.status === 'accepted' ? 'green' :
+                  u.status === 'rejected' ? 'red' : 'orange' %>">
+              <%= u.status %>
+            </span>
+          </li>
         <% } %>
       <% }) %>
     </ul>
+
   </div>
 <% }) %>
 

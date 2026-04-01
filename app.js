@@ -99,10 +99,33 @@ app.get('/logout', (req,res)=>{
 // ================= WEB DASHBOARDS =================
 
 // Admin dashboard (web)
-app.get('/admin-dashboard', (req,res)=>{
+// app.get('/admin-dashboard', (req,res)=>{
+//   const user = req.session.user;
+//   if(!user || user.role !== "admin") return res.redirect('/login');
+//   res.render('admin-dashboard', { user });
+// });
+
+// Admin dashboard (web)
+app.get('/admin-dashboard', async (req,res)=>{
   const user = req.session.user;
   if(!user || user.role !== "admin") return res.redirect('/login');
-  res.render('admin-dashboard', { user });
+
+  try {
+    const result = await pool.query("SELECT id,email,role FROM users LIMIT 10");
+
+    res.render('admin-dashboard', { 
+      user,
+      users: result.rows   // ✅ IMPORTANT
+    });
+
+  } catch(err){
+    console.error(err);
+
+    res.render('admin-dashboard', { 
+      user,
+      users: []   // ✅ fallback so EJS never breaks
+    });
+  }
 });
 
 // User dashboard (web)
@@ -269,10 +292,19 @@ app.get('/api/user/dashboard', authenticateToken, (req,res)=>{
 // ================= ADMIN USER MANAGEMENT =================
 app.get('/api/admin/users', authenticateToken, adminOnly, async (req,res)=>{
   try{
-    const users = await pool.query("SELECT id,email,role FROM users");
-    res.json(users.rows);
+    const users = await pool.query("SELECT id,email,role FROM users LIMIT 10");
+    
+    res.json({
+      success: true,
+      count: users.rows.length,
+      users: users.rows
+    });
+
   }catch(err){
-    res.status(500).json({ message:"Server error" });
+    res.status(500).json({ 
+      success:false,
+      message:"Server error" 
+    });
   }
 });
 
